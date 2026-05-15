@@ -68,7 +68,7 @@ public abstract class Animal : Organism
             }
         }
 
-        if (Energy <= 0 || (Age > MaxAge && Rand.Chance(0.02)))
+        if (Energy <= 0 || (Age > MaxAge && Random.Chance(0.02)))
         {
             World.Remove(this);
         }

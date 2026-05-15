@@ -58,8 +58,8 @@ public static class Program
         Console.SetCursorPosition(0, 0);
 
         var plants = world.All.OfType<Plant>().Count();
-        var herbs = world.All.OfType<Herbivore>().Count();
-        var preds = world.All.OfType<Predator>().Count();
+        var herbivoreCount = world.All.OfType<Herbivore>().Count();
+        var predatorCount = world.All.OfType<Predator>().Count();
 
         Console.ResetColor();
         Console.WriteLine($"Tick: {world.Tick,-8}  Plants: {plants,-5}  Herbivores: {herbs,-5}  Predators: {preds,-5}   [Space/P] pause, [Q/Esc] quit");

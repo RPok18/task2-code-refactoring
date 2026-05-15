@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace LifeSim;
 
-public static class Rand
+public static class Random
 {
-    private static readonly Random Random = new();
+    private static readonly Random _random = new();
 
     public static int Next(int min, int max) => Random.Next(min, max);
 
