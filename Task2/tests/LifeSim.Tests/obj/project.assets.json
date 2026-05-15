@@ -5524,32 +5524,40 @@
     ]
   },
   "packageFolders": {
-    "/Users/lidia/.nuget/packages/": {}
+    "C:\\Users\\pokhr\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/lidia/Work/Рефакторинг 2025/Иностранцы/Task2/tests/LifeSim.Tests/LifeSim.Tests.csproj",
+      "projectUniqueName": "E:\\Task2\\Task2\\tests\\LifeSim.Tests\\LifeSim.Tests.csproj",
       "projectName": "LifeSim.Tests",
-      "projectPath": "/Users/lidia/Work/Рефакторинг 2025/Иностранцы/Task2/tests/LifeSim.Tests/LifeSim.Tests.csproj",
-      "packagesPath": "/Users/lidia/.nuget/packages/",
-      "outputPath": "/Users/lidia/Work/Рефакторинг 2025/Иностранцы/Task2/tests/LifeSim.Tests/obj/",
+      "projectPath": "E:\\Task2\\Task2\\tests\\LifeSim.Tests\\LifeSim.Tests.csproj",
+      "packagesPath": "C:\\Users\\pokhr\\.nuget\\packages\\",
+      "outputPath": "E:\\Task2\\Task2\\tests\\LifeSim.Tests\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/Users/lidia/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\pokhr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/Users/lidia/Work/Рефакторинг 2025/Иностранцы/Task2/src/LifeSim/LifeSim.csproj": {
-              "projectPath": "/Users/lidia/Work/Рефакторинг 2025/Иностранцы/Task2/src/LifeSim/LifeSim.csproj"
+            "E:\\Task2\\Task2\\src\\LifeSim\\LifeSim.csproj": {
+              "projectPath": "E:\\Task2\\Task2\\src\\LifeSim\\LifeSim.csproj"
             }
           }
         }
@@ -5563,7 +5571,8 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -5602,7 +5611,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.418/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

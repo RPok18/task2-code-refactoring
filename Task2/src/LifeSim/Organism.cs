@@ -4,7 +4,7 @@ namespace LifeSim;
 
 public abstract class Organism
 {
-    protected Organism(World world, Point2 pos, Gender? gender = null)
+    protected Organism(World world, Point2D pos, Gender? gender = null)
     {
         World = world;
         Pos = world.Wrap(pos);
@@ -13,7 +13,7 @@ public abstract class Organism
 
     public World World { get; }
 
-    public Point2 Pos { get; set; }
+    public Point2D Pos { get; set; }
 
     public bool IsAlive { get; set; } = true;
 
@@ -35,5 +35,5 @@ public abstract class Organism
 
     public virtual void Tick() => Age++;
 
-    private static Gender PickGender() => Rand.Chance(0.5) ? Gender.Female : Gender.Male;
+    private static Gender PickGender() => Random.Chance(0.5) ? Gender.Female : Gender.Male;
 }

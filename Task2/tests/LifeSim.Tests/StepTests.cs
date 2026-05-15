@@ -10,7 +10,7 @@ public class StepTests
     public void Step_IncrementsTickAndOrganismAge()
     {
         var world = new World(3, 3);
-        var organism = new AgingOrganism(world, new Point2(0, 0));
+        var organism = new AgingOrganism(world, new Point2D(0, 0));
         world.Add(organism);
 
         world.Step();
@@ -23,7 +23,7 @@ public class StepTests
     public void Step_RemovesDeadOrganismsFromAliveCollection()
     {
         var world = new World(3, 3);
-        var organism = new SelfRemovingOrganism(world, new Point2(0, 0));
+        var organism = new SelfRemovingOrganism(world, new Point2D(0, 0));
         world.Add(organism);
 
         world.Step();
@@ -35,7 +35,7 @@ public class StepTests
     public void SerializeWorldSnapshot_ContainsTickAndOrganismCoordinates()
     {
         var world = new World(3, 3);
-        world.Add(new Plant(world, new Point2(1, 2)));
+        world.Add(new Plant(world, new Point2D(1, 2)));
         world.Step();
 
         var snapshot = world.SerializeWorldSnapshot();
@@ -46,7 +46,7 @@ public class StepTests
 
     private sealed class AgingOrganism : Organism
     {
-        public AgingOrganism(World world, Point2 pos) : base(world, pos)
+        public AgingOrganism(World world, Point2D pos) : base(world, pos)
         {
         }
 
@@ -55,7 +55,7 @@ public class StepTests
 
     private sealed class SelfRemovingOrganism : Organism
     {
-        public SelfRemovingOrganism(World world, Point2 pos) : base(world, pos)
+        public SelfRemovingOrganism(World world, Point2D pos) : base(world, pos)
         {
         }
 
