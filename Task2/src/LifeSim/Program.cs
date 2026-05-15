@@ -62,14 +62,14 @@ public static class Program
         var predatorCount = world.All.OfType<Predator>().Count();
 
         Console.ResetColor();
-        Console.WriteLine($"Tick: {world.Tick,-8}  Plants: {plants,-5}  Herbivores: {herbs,-5}  Predators: {preds,-5}   [Space/P] pause, [Q/Esc] quit");
+        Console.WriteLine($"Tick: {world.Tick,-8}  Plants: {plants,-5}  Herbivores: {herbivoreCount,-5}  Predators: {predatorCount,-5}   [Space/P] pause, [Q/Esc] quit");
 
         var snapshot = world.GridSnapshot();
         for (var y = 0; y < world.Height; y++)
         {
             for (var x = 0; x < world.Width; x++)
             {
-                if (snapshot.TryGetValue(new Point2(x, y), out var organism))
+                if (snapshot.TryGetValue(new Point2D(x, y), out var organism))
                 {
                     organism.ApplyColor();
                     Console.Write(organism.Glyph);

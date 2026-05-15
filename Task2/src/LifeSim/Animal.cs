@@ -6,7 +6,7 @@ namespace LifeSim;
 
 public abstract class Animal : Organism
 {
-    protected Animal(World world, Point2 pos, Gender? gender = null)
+    protected Animal(World world, Point2D pos, Gender? gender = null)
         : base(world, pos, gender)
     {
     }
@@ -76,30 +76,30 @@ public abstract class Animal : Organism
 
     protected abstract Organism? FindPrey();
 
-    protected abstract Animal MakeChild(Point2 p);
+    protected abstract Animal MakeChild(Point2D p);
 
-    protected static bool AreNeighborsOrSame(Point2 a, Point2 b) =>
+    protected static bool AreNeighborsOrSame(Point2D a, Point2D b) =>
         Math.Abs(a.X - b.X) <= 1 && Math.Abs(a.Y - b.Y) <= 1;
 
-    protected void StepToward(Point2 target)
+    protected void StepToward(Point2D target)
     {
         var dx = BestToroidalStep(Pos.X, target.X, World.Width);
         var dy = BestToroidalStep(Pos.Y, target.Y, World.Height);
 
-        var candidates = new List<Point2>();
+        var candidates = new List<Point2D>();
         if (dx != 0)
         {
-            candidates.Add(World.Wrap(new Point2(Pos.X + dx, Pos.Y)));
+            candidates.Add(World.Wrap(new Point2D(Pos.X + dx, Pos.Y)));
         }
 
         if (dy != 0)
         {
-            candidates.Add(World.Wrap(new Point2(Pos.X, Pos.Y + dy)));
+            candidates.Add(World.Wrap(new Point2D(Pos.X, Pos.Y + dy)));
         }
 
         if (dx != 0 && dy != 0)
         {
-            candidates.Add(World.Wrap(new Point2(Pos.X + dx, Pos.Y + dy)));
+            candidates.Add(World.Wrap(new Point2D(Pos.X + dx, Pos.Y + dy)));
         }
 
         var free = candidates.Where(World.IsEmpty).ToList();

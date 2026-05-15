@@ -6,7 +6,7 @@ namespace LifeSim;
 
 public class World
 {
-    private readonly Dictionary<Point2, Organism> _grid = new();
+    private readonly Dictionary<Point2D, Organism> _grid = new();
     private readonly List<Organism> _organisms = new();
 
     public World(int width, int height)
@@ -45,7 +45,7 @@ public class World
         _grid.Remove(org.Pos);
     }
 
-    public void MoveTo(Organism org, Point2 newPos)
+    public void MoveTo(Organism org, Point2D newPos)
     {
         if (!org.IsAlive)
         {
@@ -63,13 +63,13 @@ public class World
         _grid[wrappedPos] = org;
     }
 
-    public bool IsEmpty(Point2 p) => !_grid.ContainsKey(Wrap(p));
+    public bool IsEmpty(Point2D p) => !_grid.ContainsKey(Wrap(p));
 
-    public Point2 Wrap(Point2 p)
+    public Point2D Wrap(Point2D p)
     {
         var x = ((p.X % Width) + Width) % Width;
         var y = ((p.Y % Height) + Height) % Height;
-        return new Point2(x, y);
+        return new Point2D(x, y);
     }
 
     public void Step()
@@ -87,7 +87,7 @@ public class World
         _organisms.RemoveAll(o => !o.IsAlive);
     }
 
-    public IEnumerable<Point2> Neighbors8(Point2 p)
+    public IEnumerable<Point2D> Neighbors8(Point2D p)
     {
         for (var dy = -1; dy <= 1; dy++)
         {
@@ -95,13 +95,13 @@ public class World
             {
                 if (dx != 0 || dy != 0)
                 {
-                    yield return Wrap(new Point2(p.X + dx, p.Y + dy));
+                    yield return Wrap(new Point2D(p.X + dx, p.Y + dy));
                 }
             }
         }
     }
 
-    public IEnumerable<Point2> EmptyNeighbors8(Point2 p)
+    public IEnumerable<Point2D> EmptyNeighbors8(Point2D p)
     {
         foreach (var n in Neighbors8(p))
         {
@@ -135,23 +135,23 @@ public class World
         }
     }
 
-    public Point2? RandomEmptyCell()
+    public Point2D? RandomEmptyCell()
     {
         for (var i = 0; i < 500; i++)
         {
-            var p = new Point2(Random.Next(0, Width), Random.Next(0, Height));
+            var p = new Point2D(Random.Next(0, Width), Random.Next(0, Height));
             if (IsEmpty(p))
             {
                 return p;
             }
         }
 
-        var empties = new List<Point2>();
+        var empties = new List<Point2D>();
         for (var y = 0; y < Height; y++)
         {
             for (var x = 0; x < Width; x++)
             {
-                var p = new Point2(x, y);
+                var p = new Point2D(x, y);
                 if (IsEmpty(p))
                 {
                     empties.Add(p);
@@ -162,7 +162,7 @@ public class World
         return empties.Count == 0 ? null : empties.Pick();
     }
 
-    public Organism? FindNearest<T>(Point2 from, int visionRange)
+    public Organism? FindNearest<T>(Point2D from, int visionRange)
         where T : Organism
     {
         Organism? best = null;
@@ -192,7 +192,7 @@ public class World
         return $"Tick={Tick} | {string.Join(";", items)}";
     }
 
-    public IReadOnlyDictionary<Point2, Organism> GridSnapshot() => new Dictionary<Point2, Organism>(_grid);
+    public IReadOnlyDictionary<Point2D, Organism> GridSnapshot() => new Dictionary<Point2D, Organism>(_grid);
 
     private static int ToroidalDistance(int a, int b, int size)
     {

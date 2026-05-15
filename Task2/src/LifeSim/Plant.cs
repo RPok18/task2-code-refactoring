@@ -8,7 +8,7 @@ public class Plant : Organism
     private const double SpreadChance = 0.18;
     private const int MaxAge = 250;
 
-    public Plant(World world, Point2 pos, Gender? gender = null)
+    public Plant(World world, Point2D pos, Gender? gender = null)
         : base(world, pos, gender)
     {
     }

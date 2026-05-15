@@ -2,7 +2,7 @@ namespace LifeSim;
 
 public class Predator : Animal
 {
-    public Predator(World world, Point2 pos, Gender? gender = null)
+    public Predator(World world, Point2D pos, Gender? gender = null)
         : base(world, pos, gender)
     {
     }
@@ -23,5 +23,5 @@ public class Predator : Animal
 
     protected override Organism? FindPrey() => World.FindNearest<Herbivore>(Pos, Vision);
 
-    protected override Animal MakeChild(Point2 p) => new Predator(World, p);
+    protected override Animal MakeChild(Point2D p) => new Predator(World, p);
 }
