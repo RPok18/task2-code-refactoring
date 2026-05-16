@@ -26,3 +26,18 @@
 /Users/lidia/Work/Рефакторинг 2025/Иностранцы/Task2/src/LifeSim/obj/Debug/net8.0/LifeSim.pdb
 /Users/lidia/Work/Рефакторинг 2025/Иностранцы/Task2/src/LifeSim/obj/Debug/net8.0/LifeSim.genruntimeconfig.cache
 /Users/lidia/Work/Рефакторинг 2025/Иностранцы/Task2/src/LifeSim/obj/Debug/net8.0/ref/LifeSim.dll
+E:\Task2\Task2\src\LifeSim\obj\Debug\net8.0\LifeSim.GeneratedMSBuildEditorConfig.editorconfig
+E:\Task2\Task2\src\LifeSim\obj\Debug\net8.0\LifeSim.AssemblyInfoInputs.cache
+E:\Task2\Task2\src\LifeSim\obj\Debug\net8.0\LifeSim.AssemblyInfo.cs
+E:\Task2\Task2\src\LifeSim\obj\Debug\net8.0\LifeSim.csproj.CoreCompileInputs.cache
+E:\Task2\Task2\src\LifeSim\obj\Debug\net8.0\LifeSim.sourcelink.json
+E:\Task2\Task2\src\LifeSim\obj\Debug\net8.0\LifeSim.dll
+E:\Task2\Task2\src\LifeSim\obj\Debug\net8.0\refint\LifeSim.dll
+E:\Task2\Task2\src\LifeSim\obj\Debug\net8.0\LifeSim.pdb
+E:\Task2\Task2\src\LifeSim\bin\Debug\net8.0\LifeSim.exe
+E:\Task2\Task2\src\LifeSim\bin\Debug\net8.0\LifeSim.deps.json
+E:\Task2\Task2\src\LifeSim\bin\Debug\net8.0\LifeSim.runtimeconfig.json
+E:\Task2\Task2\src\LifeSim\bin\Debug\net8.0\LifeSim.dll
+E:\Task2\Task2\src\LifeSim\bin\Debug\net8.0\LifeSim.pdb
+E:\Task2\Task2\src\LifeSim\obj\Debug\net8.0\LifeSim.genruntimeconfig.cache
+E:\Task2\Task2\src\LifeSim\obj\Debug\net8.0\ref\LifeSim.dll
