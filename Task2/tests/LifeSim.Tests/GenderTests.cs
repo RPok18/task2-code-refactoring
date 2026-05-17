@@ -10,7 +10,7 @@ public class GenderTests
     public void Plant_HasDefinedRandomGender()
     {
         var world = new World(2, 2);
-        var plant = new Plant(world, new Point2(0, 0));
+        var plant = new Plant(world, new Point2D(0, 0));
 
         Assert.True(Enum.IsDefined(typeof(Gender), plant.Gender));
     }
@@ -19,7 +19,7 @@ public class GenderTests
     public void Animal_CanBeCreatedWithSpecificGender()
     {
         var world = new World(2, 2);
-        var herbivore = new Herbivore(world, new Point2(1, 1), Gender.Female);
+        var herbivore = new Herbivore(world, new Point2D(1, 1), Gender.Female);
 
         Assert.Equal(Gender.Female, herbivore.Gender);
     }

@@ -4,16 +4,16 @@ namespace LifeSim;
 
 public abstract class Organism
 {
-    protected Organism(World world, Point2 pos, Gender? gender = null)
+    protected Organism(World world, Point2D pos, Gender? gender = null)
     {
         World = world;
         Pos = world.Wrap(pos);
-        Gender = gender ?? PickGender();
+        Gender = gender ?? PickGender(world);
     }
 
     public World World { get; }
 
-    public Point2 Pos { get; set; }
+    public Point2D Pos { get; set; }
 
     public bool IsAlive { get; set; } = true;
 
@@ -21,19 +21,9 @@ public abstract class Organism
 
     public abstract char Glyph { get; }
 
-    public virtual ConsoleColor? Color => null;
-
-    public void ApplyColor()
-    {
-        if (Color.HasValue)
-        {
-            Console.ForegroundColor = Color.Value;
-        }
-    }
-
     public Gender Gender { get; }
 
     public virtual void Tick() => Age++;
 
-    private static Gender PickGender() => Rand.Chance(0.5) ? Gender.Female : Gender.Male;
+    private static Gender PickGender(World world) => world.Random.Chance(0.5) ? Gender.Female : Gender.Male;
 }
