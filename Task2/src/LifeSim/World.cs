@@ -4,15 +4,22 @@ using System.Linq;
 
 namespace LifeSim;
 
-public class World
+public partial class World : IReadOnlyWorld
 {
     private readonly Dictionary<Point2D, Organism> _grid = new();
     private readonly List<Organism> _organisms = new();
 
-    public World(int width, int height)
+    public IRandomProvider Random { get; }
+
+    public World(int width, int height) : this(width, height, new DefaultRandomProvider())
+    {
+    }
+
+    public World(int width, int height, IRandomProvider random)
     {
         Width = width;
         Height = height;
+        Random = random;
     }
 
     public int Width { get; }
@@ -112,28 +119,7 @@ public class World
         }
     }
 
-    public void Seed<T>(int count)
-        where T : Organism
-    {
-        for (var i = 0; i < count; i++)
-        {
-            var p = RandomEmptyCell();
-            if (p == null)
-            {
-                break;
-            }
-
-            Organism organism = typeof(T).Name switch
-            {
-                nameof(Plant) => new Plant(this, p.Value),
-                nameof(Herbivore) => new Herbivore(this, p.Value),
-                nameof(Predator) => new Predator(this, p.Value),
-                _ => throw new NotSupportedException($"Unknown organism type: {typeof(T).Name}"),
-            };
-
-            Add(organism);
-        }
-    }
+   
 
     public Point2D? RandomEmptyCell()
     {
@@ -159,31 +145,7 @@ public class World
             }
         }
 
-        return empties.Count == 0 ? null : empties.Pick();
-    }
-
-    public Organism? FindNearest<T>(Point2D from, int visionRange)
-        where T : Organism
-    {
-        Organism? best = null;
-        var bestDist = int.MaxValue;
-
-        foreach (var o in All)
-        {
-            if (o is T)
-            {
-                var dx = ToroidalDistance(from.X, o.Pos.X, Width);
-                var dy = ToroidalDistance(from.Y, o.Pos.Y, Height);
-                var distance = dx + dy;
-                if (distance <= visionRange && distance < bestDist)
-                {
-                    best = o;
-                    bestDist = distance;
-                }
-            }
-        }
-
-        return best;
+        return empties.Count == 0 ? null : empties.Pick(Random);
     }
 
     public string SerializeWorldSnapshot()

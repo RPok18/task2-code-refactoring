@@ -19,8 +19,6 @@ public class Predator : Animal
 
     protected override char SelfGlyph => 'W';
 
-    public override System.ConsoleColor? Color => System.ConsoleColor.Red;
-
     protected override Organism? FindPrey() => World.FindNearest<Herbivore>(Pos, Vision);
 
     protected override Animal MakeChild(Point2D p) => new Predator(World, p);

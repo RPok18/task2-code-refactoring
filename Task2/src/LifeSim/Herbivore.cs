@@ -19,7 +19,6 @@ public class Herbivore : Animal
 
     protected override char SelfGlyph => 'h';
 
-    public override System.ConsoleColor? Color => System.ConsoleColor.Yellow;
 
     protected override Organism? FindPrey() => World.FindNearest<Plant>(Pos, Vision);
 

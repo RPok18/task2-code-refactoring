@@ -59,8 +59,7 @@ public class WorldTests
     public void Seed_DoesNotExceedWorldCapacity()
     {
         var world = new World(2, 2);
-
-        world.Seed<Plant>(100);
+        world.Seed(100, p => new Plant(world, p));
 
         Assert.Equal(4, world.All.Count());
     }

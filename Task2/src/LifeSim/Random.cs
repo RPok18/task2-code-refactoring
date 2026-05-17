@@ -3,15 +3,26 @@ using System.Collections.Generic;
 
 namespace LifeSim;
 
-public static class Random
+public interface IRandomProvider
 {
-    private static readonly System.Random _random = new();
+    int Next(int min, int max);
+    double NextDouble();
+    bool Chance(double p);
+}
 
-    public static int Next(int min, int max) => _random.Next(min, max);
+public class DefaultRandomProvider : IRandomProvider
+{
+    private readonly System.Random _random = new();
 
-    public static double NextDouble() => _random.NextDouble();
+    public int Next(int min, int max) => _random.Next(min, max);
 
-    public static T? Pick<T>(this IList<T> list) => list.Count == 0 ? default : list[Random.Next(0, list.Count)];
+    public double NextDouble() => _random.NextDouble();
 
-    public static bool Chance(double p) => NextDouble() < p;
+    public bool Chance(double p) => NextDouble() < p;
+}
+
+public static class RandomExtensions
+{
+    public static T? Pick<T>(this IList<T> list, IRandomProvider random) => 
+        list.Count == 0 ? default : list[random.Next(0, list.Count)];
 }

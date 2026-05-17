@@ -8,7 +8,7 @@ public abstract class Organism
     {
         World = world;
         Pos = world.Wrap(pos);
-        Gender = gender ?? PickGender();
+        Gender = gender ?? PickGender(world);
     }
 
     public World World { get; }
@@ -21,19 +21,9 @@ public abstract class Organism
 
     public abstract char Glyph { get; }
 
-    public virtual ConsoleColor? Color => null;
-
-    public void ApplyColor()
-    {
-        if (Color.HasValue)
-        {
-            Console.ForegroundColor = Color.Value;
-        }
-    }
-
     public Gender Gender { get; }
 
     public virtual void Tick() => Age++;
 
-    private static Gender PickGender() => Random.Chance(0.5) ? Gender.Female : Gender.Male;
+    private static Gender PickGender(World world) => world.Random.Chance(0.5) ? Gender.Female : Gender.Male;
 }

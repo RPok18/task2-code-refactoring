@@ -1,47 +1,65 @@
 using System;
 using System.Linq;
+using System.Text;
 using System.Threading;
 
 namespace LifeSim;
 
-public static class Program
+public static partial class Program
 {
+   
+    private const int Width = 50;
+    private const int Height = 22;
+
+    private const int InitialHerbivores = 28;
+    private const int InitialPredators = 10;
+
+    private const int DelayMs = 120;
+
     public static void Main()
     {
-        Console.OutputEncoding = System.Text.Encoding.UTF8;
+        SetupConsole();
+
+        var world = CreateWorld();
+
+        RunSimulation(world);
+
+        CleanupConsole();
+    }
+
+    private static void SetupConsole()
+    {
+        Console.OutputEncoding = Encoding.UTF8;
         Console.CursorVisible = false;
+    }
 
-        const int width = 50;
-        const int height = 22;
-        var initialPlants = (int)(width * height * 0.22);
-        const int initialHerbivores = 28;
-        const int initialPredators = 10;
+    private static void CleanupConsole()
+    {
+        Console.ResetColor();
+        Console.CursorVisible = true;
+    }
 
-        var world = new World(width, height);
-        world.Seed<Plant>(initialPlants);
-        world.Seed<Herbivore>(initialHerbivores);
-        world.Seed<Predator>(initialPredators);
+    private static World CreateWorld()
+    {
+        var random = new DefaultRandomProvider();
+        var world = new World(Width, Height, random);
 
-        var paused = false;
-        const int delayMs = 120;
+        int initialPlants = (int)(Width * Height * 0.22);
+
+        world.Seed(initialPlants, pos => new Plant(world, pos));
+        world.Seed(InitialHerbivores, pos => new Herbivore(world, pos));
+        world.Seed(InitialPredators, pos => new Predator(world, pos));
+
+        return world;
+    }
+
+    private static void RunSimulation(World world)
+    {
+        bool paused = false;
 
         while (true)
         {
-            while (!Console.IsInputRedirected && Console.KeyAvailable)
-            {
-                var key = Console.ReadKey(true).Key;
-                if (key == ConsoleKey.Q || key == ConsoleKey.Escape)
-                {
-                    Console.ResetColor();
-                    Console.CursorVisible = true;
-                    return;
-                }
-
-                if (key == ConsoleKey.Spacebar || key == ConsoleKey.P)
-                {
-                    paused = !paused;
-                }
-            }
+            HandleInput(ref paused);
 
             if (!paused)
             {
@@ -49,39 +67,29 @@ public static class Program
                 RenderWorld(world);
             }
 
-            Thread.Sleep(delayMs);
+            Thread.Sleep(DelayMs);
         }
     }
 
-    private static void RenderWorld(World world)
+    private static void HandleInput(ref bool paused)
     {
-        Console.SetCursorPosition(0, 0);
-
-        var plants = world.All.OfType<Plant>().Count();
-        var herbivoreCount = world.All.OfType<Herbivore>().Count();
-        var predatorCount = world.All.OfType<Predator>().Count();
-
-        Console.ResetColor();
-        Console.WriteLine($"Tick: {world.Tick,-8}  Plants: {plants,-5}  Herbivores: {herbivoreCount,-5}  Predators: {predatorCount,-5}   [Space/P] pause, [Q/Esc] quit");
-
-        var snapshot = world.GridSnapshot();
-        for (var y = 0; y < world.Height; y++)
+        while (!Console.IsInputRedirected && Console.KeyAvailable)
         {
-            for (var x = 0; x < world.Width; x++)
-            {
-                if (snapshot.TryGetValue(new Point2D(x, y), out var organism))
-                {
-                    organism.ApplyColor();
-                    Console.Write(organism.Glyph);
-                    Console.ResetColor();
-                }
-                else
-                {
-                    Console.Write(' ');
-                }
-            }
+            var key = Console.ReadKey(true).Key;
 
-            Console.WriteLine();
+            switch (key)
+            {
+                case ConsoleKey.Q:
+                case ConsoleKey.Escape:
+                    CleanupConsole();
+                    Environment.Exit(0);
+                    break;
+
+                case ConsoleKey.Spacebar:
+                case ConsoleKey.P:
+                    paused = !paused;
+                    break;
+            }
         }
     }
 }

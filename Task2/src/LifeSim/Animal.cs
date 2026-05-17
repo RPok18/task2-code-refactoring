@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace LifeSim;
 
-public abstract class Animal : Organism
+public abstract partial class Animal : Organism
 {
     protected Animal(World world, Point2D pos, Gender? gender = null)
         : base(world, pos, gender)
@@ -25,54 +25,12 @@ public abstract class Animal : Organism
 
     public override char Glyph => SelfGlyph;
 
-    public override ConsoleColor? Color => ConsoleColor.White;
 
     public int Energy { get; set; }
 
     public int MaxAge { get; set; } = 1000;
 
-    public override void Tick()
-    {
-        base.Tick();
-
-        if (Age == 1 && Energy == 0)
-        {
-            Energy = InitialEnergy;
-        }
-
-        var prey = FindPrey();
-        if (prey != null)
-        {
-            StepToward(prey.Pos);
-            if (AreNeighborsOrSame(Pos, prey.Pos) && prey.IsAlive)
-            {
-                World.Remove(prey);
-                Energy += BiteGain;
-            }
-        }
-        else
-        {
-            Wander();
-        }
-
-        Energy -= MoveCost;
-
-        if (Energy >= ReproduceThreshold)
-        {
-            var empty = World.EmptyNeighbors8(Pos).ToList();
-            if (empty.Count > 0)
-            {
-                var child = MakeChild(empty.Pick()!);
-                Energy /= 2;
-                World.Add(child);
-            }
-        }
-
-        if (Energy <= 0 || (Age > MaxAge && Random.Chance(0.02)))
-        {
-            World.Remove(this);
-        }
-    }
+   
 
     protected abstract Organism? FindPrey();
 
@@ -109,7 +67,7 @@ public abstract class Animal : Organism
             return;
         }
 
-        World.MoveTo(this, free.Pick()!);
+        World.MoveTo(this, free.Pick(World.Random)!);
     }
 
     protected void Wander()
@@ -117,7 +75,7 @@ public abstract class Animal : Organism
         var options = World.EmptyNeighbors8(Pos).ToList();
         if (options.Count > 0)
         {
-            World.MoveTo(this, options.Pick()!);
+            World.MoveTo(this, options.Pick(World.Random)!);
         }
     }
 

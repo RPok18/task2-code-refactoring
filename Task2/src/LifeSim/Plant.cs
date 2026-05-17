@@ -15,22 +15,21 @@ public class Plant : Organism
 
     public override char Glyph => '♣';
 
-    public override System.ConsoleColor? Color => System.ConsoleColor.Green;
 
     public override void Tick()
     {
         base.Tick();
 
-        if (Age >= MatureAge && Random.Chance(SpreadChance))
+        if (Age >= MatureAge && World.Random.Chance(SpreadChance))
         {
             var spots = World.EmptyNeighbors8(Pos).ToList();
             if (spots.Count > 0)
             {
-                World.Add(new Plant(World, spots.Pick()!));
+                World.Add(new Plant(World, spots.Pick(World.Random)!));
             }
         }
 
-        if (Age > MaxAge && Random.Chance(0.01))
+        if (Age > MaxAge && World.Random.Chance(0.01))
         {
             World.Remove(this);
         }
